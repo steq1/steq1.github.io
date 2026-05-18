@@ -24,12 +24,30 @@
     </script>
     <style>
         body { background-color: #000000; color: #ffffff; }
-        /* 高透明度毛玻璃导航（需叠在 Hero 背景之上才可见通透效果） */
+        /* 渐变毛玻璃导航（自上而下淡出，融入 Hero） */
         .glass-nav {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px) saturate(1.2);
-            -webkit-backdrop-filter: blur(20px) saturate(1.2);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            isolation: isolate;
+        }
+        .glass-nav::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.38) 0%,
+                rgba(0, 0, 0, 0.12) 55%,
+                transparent 100%
+            );
+            backdrop-filter: blur(20px) saturate(1.25);
+            -webkit-backdrop-filter: blur(20px) saturate(1.25);
+            -webkit-mask-image: linear-gradient(to bottom, black 0%, black 45%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 0%, black 45%, transparent 100%);
+            pointer-events: none;
+        }
+        .glass-nav > div {
+            position: relative;
+            z-index: 1;
         }
         /* 柔和的底层光晕 */
         .ambient-glow { position: absolute; border-radius: 50%; filter: blur(120px); z-index: 0; pointer-events: none; }
@@ -39,7 +57,7 @@
         .media-placeholder { background: linear-gradient(145deg, #111 0%, #050505 100%); border: 1px solid rgba(255,255,255,0.05); }
         .media-fill { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
         /* 自然边缘过渡 */
-        .hero-gradient-t { background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 12%, transparent 25%); }
+        .hero-gradient-t { background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, transparent 22%); }
         .hero-gradient-b { background: linear-gradient(to top, #000000 0%, #000000 5%, rgba(0,0,0,0.6) 20%, transparent 60%); }
         .hero-gradient-l { background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 25%, transparent 60%); }
         .hero-glow { background: radial-gradient(circle at 50% 50%, rgba(34, 211, 238, 0.05) 0%, transparent 70%); }
@@ -57,7 +75,7 @@
             <div class="absolute inset-0 hero-glow"></div>
         </div>
 
-        <nav class="absolute top-0 left-0 right-0 z-50 glass-nav">
+        <nav class="absolute top-0 left-0 right-0 z-50 glass-nav pb-10">
             <div class="max-w-[90rem] mx-auto px-6 lg:px-12">
                 <div class="flex items-center justify-between h-20">
                     <div class="font-bold text-lg tracking-widest text-white flex items-center gap-3">
