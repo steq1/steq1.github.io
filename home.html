@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STEQ Robotics | 具身智能的未来</title>
+    <!-- 引入 Tailwind CSS (免安装版) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Google 字体 Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #000000; color: #ffffff; }
+        /* 导航栏毛玻璃效果 */
+        .glass-nav { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        /* 首屏背景渐变光晕 */
+        .hero-glow { background: radial-gradient(circle at 50% 30%, rgba(37, 99, 235, 0.15) 0%, rgba(0,0,0,0) 50%); }
+        /* 卡片悬浮特效 */
+        .tech-card { transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.05); background: rgba(25, 25, 25, 0.4); }
+        .tech-card:hover { transform: translateY(-5px); border-color: rgba(59, 130, 246, 0.5); box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.2); }
+        /* 跑马灯动画渐变 */
+        .text-gradient { background: linear-gradient(to right, #ffffff, #9ca3af); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    </style>
+</head>
+<body class="antialiased selection:bg-blue-500 selection:text-white">
+
+    <!-- 导航栏 -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 font-bold text-2xl tracking-tighter">
+                    STEQ<span class="text-blue-500">.</span>
+                </div>
+                <!-- 桌面端菜单 -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8 text-sm font-medium text-gray-300">
+                        <a href="#hero" class="hover:text-white transition">首页</a>
+                        <a href="#specs" class="hover:text-white transition">技术参数</a>
+                        <a href="#features" class="hover:text-white transition">核心技术</a>
+                        <a href="#team" class="hover:text-white transition">加入我们</a>
+                    </div>
+                </div>
+                <!-- 投资人联系按钮 -->
+                <div class="hidden md:block">
+                    <a href="mailto:investors@yourdomain.com" class="px-5 py-2.5 rounded-full bg-white text-black font-semibold text-sm hover:bg-gray-200 transition">
+                        联系我们
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 首屏主视觉区 (Hero Section) -->
+    <section id="hero" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden hero-glow min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 text-center">
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-8 text-gradient">
+                具身智能，<br/>触手可及。
+            </h1>
+            <p class="mt-4 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto font-light mb-10">
+                STEQ Robotics 致力于打造下一代通用人形机器人。<br class="hidden md:block">将尖端视觉语言模型与突破性仿生硬件完美融合。
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <!-- 播放视频按钮 -->
+                <a href="#" class="px-8 py-4 rounded-full bg-blue-600 text-white font-semibold hover:bg-blue-700 transition shadow-[0_0_20px_rgba(37,99,235,0.4)]">
+                    观看概念片 (Demo)
+                </a>
+                <!-- 技术文档按钮 -->
+                <a href="#specs" class="px-8 py-4 rounded-full bg-transparent border border-gray-600 text-white font-semibold hover:border-gray-300 transition">
+                    核心技术参数
+                </a>
+            </div>
+            
+            <!-- 机器人渲染图占位图 (请替换为你自己的高质量透明底机器图) -->
+            <div class="mt-20 relative max-w-4xl mx-auto">
+                <div class="absolute inset-0 bg-blue-500 blur-[100px] opacity-20 rounded-full"></div>
+                <!-- TODO: 将这里的 src 替换为你们机器人的真实图片 -->
+                <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2940&auto=format&fit=crop" alt="STEQ Humanoid Robot" class="relative z-10 rounded-2xl border border-gray-800 shadow-2xl opacity-80 hover:opacity-100 transition duration-500 object-cover h-[400px] w-full">
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心参数区 (Stats) -->
+    <section id="specs" class="py-20 border-y border-gray-900 bg-[#020202]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-4xl md:text-5xl font-bold text-white mb-2">40<span class="text-blue-500">+</span></div>
+                    <div class="text-sm text-gray-500 uppercase tracking-widest">全身自由度</div>
+                </div>
+                <div>
+                    <div class="text-4xl md:text-5xl font-bold text-white mb-2">30<span class="text-blue-500">kg</span></div>
+                    <div class="text-sm text-gray-500 uppercase tracking-widest">单臂有效负载</div>
+                </div>
+                <div>
+                    <div class="text-4xl md:text-5xl font-bold text-white mb-2">0.1<span class="text-blue-500">mm</span></div>
+                    <div class="text-sm text-gray-500 uppercase tracking-widest">末端重复定位精度</div>
+                </div>
+                <div>
+                    <div class="text-4xl md:text-5xl font-bold text-white mb-2">6<span class="text-blue-500">h</span></div>
+                    <div class="text-sm text-gray-500 uppercase tracking-widest">综合续航时间</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技术亮点区 (Features) -->
+    <section id="features" class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="mb-16 md:mb-24">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">重塑硬件与大脑</h2>
+                <p class="text-gray-400 text-lg max-w-2xl">从底层自研的高扭矩关节模组，到原生支持多模态输入的具身大脑，我们掌控每一个核心环节。</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 特性卡片 1 -->
+                <div class="tech-card rounded-2xl p-8">
+                    <div class="h-12 w-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-white">VLA 视觉语言动作模型</h3>
+                    <p class="text-gray-400 leading-relaxed text-sm">摒弃传统的状态机控制。我们的机器人能够直接听懂自然语言指令，通过视觉理解环境，并实时生成平滑的运动轨迹。</p>
+                </div>
+
+                <!-- 特性卡片 2 -->
+                <div class="tech-card rounded-2xl p-8">
+                    <div class="h-12 w-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-white">自研一体化关节</h3>
+                    <p class="text-gray-400 leading-relaxed text-sm">极致的峰值扭矩密度。将电机、减速器、编码器与驱动器高度集成，提供媲美人类肌肉的爆发力与柔顺性。</p>
+                </div>
+
+                <!-- 特性卡片 3 -->
+                <div class="tech-card rounded-2xl p-8">
+                    <div class="h-12 w-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-white">高动态平衡算法</h3>
+                    <p class="text-gray-400 leading-relaxed text-sm">基于全身动力学模型（WBC）与强化学习（RL），在复杂地形、受强外力冲击下依然保持稳定不倒。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 招聘/加入我们 (Hiring) -->
+    <section id="team" class="py-24 border-t border-gray-900 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-5"></div>
+        <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative z-10">
+            <h2 class="text-4xl font-bold mb-6">Build the Future with Us</h2>
+            <p class="text-xl text-gray-400 mb-10">我们正在寻找顶尖的具身算法工程师、电机控制专家、机械结构工程师。<br>如果你渴望将科幻变成现实，欢迎上船。</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="mailto:hr@yourdomain.com" class="px-8 py-4 rounded-full bg-white text-black font-semibold hover:bg-gray-200 transition">
+                    投递简历 (hr@yourdomain.com)
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部 (Footer) -->
+    <footer class="py-10 border-t border-gray-900 bg-black text-center text-gray-600 text-sm">
+        <div class="max-w-7xl mx-auto px-6">
+            <p>&copy; 2024 STEQ Robotics, Inc. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
