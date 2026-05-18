@@ -3,164 +3,326 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STEQ Robotics | 具身智能的未来</title>
-    <!-- 引入 Tailwind CSS (免安装版) -->
+    <title>星际量子科技 | 构建下一代具身智能本体平台</title>
+    <!-- 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 引入 Google 字体 Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+                    colors: {
+                        quantum: { 400: '#22d3ee', 500: '#06b6d4', 600: '#0891b2' } // 量子青色主题
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #000000; color: #ffffff; }
-        /* 导航栏毛玻璃效果 */
-        .glass-nav { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05); }
-        /* 首屏背景渐变光晕 */
-        .hero-glow { background: radial-gradient(circle at 50% 30%, rgba(37, 99, 235, 0.15) 0%, rgba(0,0,0,0) 50%); }
-        /* 卡片悬浮特效 */
-        .tech-card { transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.05); background: rgba(25, 25, 25, 0.4); }
-        .tech-card:hover { transform: translateY(-5px); border-color: rgba(59, 130, 246, 0.5); box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.2); }
-        /* 跑马灯动画渐变 */
-        .text-gradient { background: linear-gradient(to right, #ffffff, #9ca3af); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        body { background-color: #050505; color: #f3f4f6; }
+        .glass-nav { background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .hero-glow { background: radial-gradient(circle at 50% -20%, rgba(6, 182, 212, 0.15) 0%, rgba(5,5,5,1) 60%); }
+        .card-hover { transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.08); background: rgba(20, 20, 20, 0.4); }
+        .card-hover:hover { transform: translateY(-4px); border-color: rgba(34, 211, 238, 0.4); box-shadow: 0 10px 40px -10px rgba(6, 182, 212, 0.15); }
+        .text-gradient { background: linear-gradient(to right, #ffffff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .flow-line { width: 2px; background: linear-gradient(to bottom, #22d3ee, rgba(34,211,238,0.1)); }
     </style>
 </head>
-<body class="antialiased selection:bg-blue-500 selection:text-white">
+<body class="antialiased selection:bg-quantum-500 selection:text-white">
 
-    <!-- 导航栏 -->
+    <!-- 1. 导航栏 -->
     <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <div class="flex-shrink-0 font-bold text-2xl tracking-tighter">
-                    STEQ<span class="text-blue-500">.</span>
+                <div class="flex-shrink-0 font-bold text-xl tracking-wide text-white flex items-center gap-2">
+                    <!-- 你可以在这里换成你们的Logo图标 -->
+                    <div class="w-6 h-6 rounded bg-quantum-500"></div>
+                    星际量子科技
                 </div>
-                <!-- 桌面端菜单 -->
                 <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8 text-sm font-medium text-gray-300">
-                        <a href="#hero" class="hover:text-white transition">首页</a>
-                        <a href="#specs" class="hover:text-white transition">技术参数</a>
-                        <a href="#features" class="hover:text-white transition">核心技术</a>
-                        <a href="#team" class="hover:text-white transition">加入我们</a>
+                    <div class="ml-10 flex items-baseline space-x-8 text-sm font-medium text-gray-400">
+                        <a href="#about" class="hover:text-white transition">关于我们</a>
+                        <a href="#philosophy" class="hover:text-white transition">产品理念</a>
+                        <a href="#products" class="hover:text-white transition">机器人平台</a>
+                        <a href="#capabilities" class="hover:text-white transition">核心能力</a>
                     </div>
                 </div>
-                <!-- 投资人联系按钮 -->
                 <div class="hidden md:block">
-                    <a href="mailto:investors@yourdomain.com" class="px-5 py-2.5 rounded-full bg-white text-black font-semibold text-sm hover:bg-gray-200 transition">
-                        联系我们
+                    <a href="#contact" class="px-5 py-2 rounded border border-quantum-500 text-quantum-400 hover:bg-quantum-500 hover:text-white transition text-sm font-medium">
+                        联系合作
                     </a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- 首屏主视觉区 (Hero Section) -->
-    <section id="hero" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden hero-glow min-h-screen flex items-center">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 text-center">
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-8 text-gradient">
-                具身智能，<br/>触手可及。
-            </h1>
-            <p class="mt-4 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto font-light mb-10">
-                STEQ Robotics 致力于打造下一代通用人形机器人。<br class="hidden md:block">将尖端视觉语言模型与突破性仿生硬件完美融合。
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <!-- 播放视频按钮 -->
-                <a href="#" class="px-8 py-4 rounded-full bg-blue-600 text-white font-semibold hover:bg-blue-700 transition shadow-[0_0_20px_rgba(37,99,235,0.4)]">
-                    观看概念片 (Demo)
-                </a>
-                <!-- 技术文档按钮 -->
-                <a href="#specs" class="px-8 py-4 rounded-full bg-transparent border border-gray-600 text-white font-semibold hover:border-gray-300 transition">
-                    核心技术参数
-                </a>
+    <!-- 2. 首屏 Hero 区 -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden hero-glow min-h-screen flex items-center border-b border-white/5">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03]"></div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="max-w-4xl">
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8 text-white leading-tight">
+                    构建下一代<br/><span class="text-gradient">具身智能本体平台</span>
+                </h1>
+                <p class="mt-4 text-lg md:text-xl text-gray-400 font-light mb-10 leading-relaxed max-w-2xl">
+                    我们打造开放、稳定、可演进的人形机器人平台，让策略模型、动作数据与未来具身大模型拥有真实可执行的物理载体。
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#products" class="px-8 py-3.5 rounded bg-white text-black font-semibold hover:bg-gray-200 transition text-center">
+                        了解产品
+                    </a>
+                    <a href="#capabilities" class="px-8 py-3.5 rounded border border-gray-600 text-white font-semibold hover:border-white transition text-center">
+                        查看技术能力
+                    </a>
+                    <a href="#contact" class="px-8 py-3.5 rounded bg-quantum-600/20 text-quantum-400 border border-quantum-600/50 font-semibold hover:bg-quantum-600 hover:text-white transition text-center">
+                        联系合作
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. 公司简介模块 -->
+    <section id="about" class="py-24 border-b border-white/5 bg-[#0a0a0a]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center">
+                <div class="text-quantum-500 font-semibold tracking-wider text-sm uppercase mb-4">About Us</div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-8">关于星际量子科技</h2>
+                <div class="space-y-6 text-gray-400 text-lg leading-relaxed text-left md:text-center">
+                    <p>星际量子科技是一家具身智能本体平台公司，专注于人形机器人本体、运动控制系统与模型部署链路的研发。</p>
+                    <p class="text-white font-medium text-xl border-l-4 border-quantum-500 pl-6 text-left">
+                        “我们相信，未来 AI 不会只停留在屏幕和云端。随着具身大模型、VLA 与机器人策略模型的发展，智能系统需要一个能够进入真实世界、理解物理约束并稳定执行动作的身体。”
+                    </p>
+                    <p>星际量子科技的目标，是打造这样的身体平台：稳定、开放、可调试、可定制，并能够持续承载上层模型能力的演进。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. 产品理念模块 -->
+    <section id="philosophy" class="py-24 border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">我们如何理解人形机器人</h2>
+                <p class="text-gray-400 text-lg mb-6 leading-relaxed">
+                    人形机器人不是简单的重载机器，也不是机械臂的另一种形态。<br><br>
+                    它更像一种面向人类环境的具身智能终端：能够进入为人类设计的空间，使用为人类设计的工具，以类人的动作、姿态和交互方式，与真实世界发生关系。
+                </p>
+                <p class="text-quantum-400 font-medium text-lg">我们希望机器人不仅能动起来，更能成为未来模型进入真实世界的稳定载体。</p>
+            </div>
+            <div class="card-hover rounded-2xl p-8">
+                <h3 class="text-xl font-semibold mb-6">我们在产品设计上更关注：</h3>
+                <ul class="space-y-4 text-gray-300">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-6 h-6 text-quantum-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span><strong class="text-white">灵巧性</strong>，而非盲目追求重载</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-6 h-6 text-quantum-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span><strong class="text-white">开放性</strong>，而非封闭系统</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-6 h-6 text-quantum-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span><strong class="text-white">可部署性</strong>，而非单次演示</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-6 h-6 text-quantum-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span><strong class="text-white">可维护性</strong>，而非实验室样机</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-6 h-6 text-quantum-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span><strong class="text-white">形象与动作表现力</strong>，而非单点参数竞争</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. 产品展示模块 -->
+    <section id="products" class="py-24 border-b border-white/5 bg-[#0a0a0a]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">机器人平台系列</h2>
+                <p class="text-gray-400">从 Demo 验证到工程化量产的完整演进路径</p>
             </div>
             
-            <!-- 机器人渲染图占位图 (请替换为你自己的高质量透明底机器图) -->
-            <div class="mt-20 relative max-w-4xl mx-auto">
-                <div class="absolute inset-0 bg-blue-500 blur-[100px] opacity-20 rounded-full"></div>
-                <!-- TODO: 将这里的 src 替换为你们机器人的真实图片 -->
-                <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2940&auto=format&fit=crop" alt="STEQ Humanoid Robot" class="relative z-10 rounded-2xl border border-gray-800 shadow-2xl opacity-80 hover:opacity-100 transition duration-500 object-cover h-[400px] w-full">
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- K2 卡片 -->
+                <div class="card-hover rounded-2xl overflow-hidden flex flex-col">
+                    <!-- TODO: 替换为 K2 的真实图片 -->
+                    <div class="h-64 bg-zinc-900 border-b border-white/10 flex items-center justify-center relative">
+                        <span class="text-zinc-700 text-xl font-bold tracking-widest">[ K2 真机图片占位 ]</span>
+                        <div class="absolute top-4 left-4 bg-black/50 backdrop-blur px-3 py-1 rounded text-xs text-gray-300 border border-white/10">Generation 1</div>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <h3 class="text-2xl font-bold mb-2">K2: 第一代人形机器人 Demo 样机</h3>
+                        <p class="text-gray-400 mb-6 flex-1 text-sm leading-relaxed">K2 是星际量子科技第一代人形机器人 Demo 样机，定位为运动控制与整机工程闭环验证平台。已完成从结构、电气、软件系统、RL/模仿学习到真机部署的完整链路验证，支持站立、行走、跑步和基础动作模仿。</p>
+                        <div class="flex flex-wrap gap-2 mt-auto">
+                            <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-gray-300 border border-white/10">1.4 米级</span>
+                            <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-gray-300 border border-white/10">21 自由度</span>
+                            <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-gray-300 border border-white/10">RL/模仿学习</span>
+                            <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-gray-300 border border-white/10">sim2real</span>
+                            <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-gray-300 border border-white/10">闭环运控</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- K3 卡片 -->
+                <div class="card-hover rounded-2xl overflow-hidden flex flex-col border-quantum-500/30">
+                    <!-- TODO: 替换为 K3 的渲染图或真机图 -->
+                    <div class="h-64 bg-zinc-900 border-b border-white/10 flex items-center justify-center relative bg-gradient-to-br from-zinc-900 to-quantum-900/20">
+                        <span class="text-zinc-700 text-xl font-bold tracking-widest">[ K3 渲染图占位 ]</span>
+                        <div class="absolute top-4 left-4 bg-quantum-500/20 backdrop-blur px-3 py-1 rounded text-xs text-quantum-400 border border-quantum-500/30">Next Generation</div>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <h3 class="text-2xl font-bold mb-2">K3: 面向工程化验证平台</h3>
+                        <p class="text-gray-400 mb-6 flex-1 text-sm leading-relaxed">K3 是星际量子科技下一阶段平台，目标是从运控 Demo 走向可小批量复制、可开放接入、可客户共创的工程化平台。重点验证供应链、关节方案、主控架构及技术支持，为未来多形态本体奠定基础。</p>
+                        <div class="flex flex-wrap gap-2 mt-auto">
+                            <span class="px-3 py-1 bg-quantum-500/10 rounded-full text-xs text-quantum-400 border border-quantum-500/20">27 自由度目标</span>
+                            <span class="px-3 py-1 bg-quantum-500/10 rounded-full text-xs text-quantum-400 border border-quantum-500/20">开放接口 & SDK</span>
+                            <span class="px-3 py-1 bg-quantum-500/10 rounded-full text-xs text-quantum-400 border border-quantum-500/20">自研关节模组</span>
+                            <span class="px-3 py-1 bg-quantum-500/10 rounded-full text-xs text-quantum-400 border border-quantum-500/20">选配灵巧手</span>
+                            <span class="px-3 py-1 bg-quantum-500/10 rounded-full text-xs text-quantum-400 border border-quantum-500/20">定制化外观</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- 核心参数区 (Stats) -->
-    <section id="specs" class="py-20 border-y border-gray-900 bg-[#020202]">
+    <!-- 6. 核心能力模块 -->
+    <section id="capabilities" class="py-24 border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <div>
-                    <div class="text-4xl md:text-5xl font-bold text-white mb-2">40<span class="text-blue-500">+</span></div>
-                    <div class="text-sm text-gray-500 uppercase tracking-widest">全身自由度</div>
+            <div class="mb-16 max-w-3xl">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">核心能力</h2>
+                <p class="text-gray-400 text-lg">
+                    人形机器人不是单一算法或单一硬件的竞争，而是结构、电气、控制、仿真、软件、供应链和真机实验的系统工程。<br>
+                    <span class="text-white font-medium">星际量子科技的核心能力，来自完整闭环。</span>
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="card-hover p-8 rounded-2xl">
+                    <h3 class="text-xl font-bold mb-3 text-white">01 / 本体工程</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">从结构设计、关节选型、线束布局、主控系统到整机装配，我们关注每一个影响机器人稳定运行的工程细节。人形机器人不是简单堆叠零部件，而是一个高度耦合的机电算系统。真正的可靠性，来自长期调试、测试和工程准则沉淀。</p>
                 </div>
-                <div>
-                    <div class="text-4xl md:text-5xl font-bold text-white mb-2">30<span class="text-blue-500">kg</span></div>
-                    <div class="text-sm text-gray-500 uppercase tracking-widest">单臂有效负载</div>
+                <div class="card-hover p-8 rounded-2xl">
+                    <h3 class="text-xl font-bold mb-3 text-white">02 / sim2real 仿真迁移</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">我们构建从仿真到真机的完整迁移流程，围绕电机延迟、控制频率、系统噪声、模型偏差和真实执行器特性进行建模与验证。目标不是让机器人只在仿真里表现良好，而是让策略能够稳定进入真实机器人。</p>
                 </div>
-                <div>
-                    <div class="text-4xl md:text-5xl font-bold text-white mb-2">0.1<span class="text-blue-500">mm</span></div>
-                    <div class="text-sm text-gray-500 uppercase tracking-widest">末端重复定位精度</div>
+                <div class="card-hover p-8 rounded-2xl">
+                    <h3 class="text-xl font-bold mb-3 text-white">03 / RL 与模仿学习 Pipeline</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">团队已建立基于强化学习与模仿学习的动作训练与部署流程，可将动作数据、训练策略和真机运行连接起来，形成持续迭代的运动能力开发体系。</p>
                 </div>
-                <div>
-                    <div class="text-4xl md:text-5xl font-bold text-white mb-2">6<span class="text-blue-500">h</span></div>
-                    <div class="text-sm text-gray-500 uppercase tracking-widest">综合续航时间</div>
+                <div class="card-hover p-8 rounded-2xl">
+                    <h3 class="text-xl font-bold mb-3 text-white">04 / 快速参数化适配</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">我们的软件系统支持通过参数配置适配不同电机、不同构型和不同机器人平台，减少重复开发和长周期现场调试。这为后续 K3 及更多形态机器人平台提供了基础能力。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 技术亮点区 (Features) -->
-    <section id="features" class="py-32 relative">
+    <!-- 7. 技术路线模块 (流程图设计) -->
+    <section class="py-24 border-b border-white/5 bg-zinc-950">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="mb-16 md:mb-24">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">重塑硬件与大脑</h2>
-                <p class="text-gray-400 text-lg max-w-2xl">从底层自研的高扭矩关节模组，到原生支持多模态输入的具身大脑，我们掌控每一个核心环节。</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- 特性卡片 1 -->
-                <div class="tech-card rounded-2xl p-8">
-                    <div class="h-12 w-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3 text-white">VLA 视觉语言动作模型</h3>
-                    <p class="text-gray-400 leading-relaxed text-sm">摒弃传统的状态机控制。我们的机器人能够直接听懂自然语言指令，通过视觉理解环境，并实时生成平滑的运动轨迹。</p>
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">从动作到真实世界</h2>
+                    <p class="text-gray-400 text-lg mb-6 leading-relaxed">
+                        我们的技术路线围绕一个目标展开：<strong class="text-white">让策略模型稳定进入真实机器人。</strong>
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        在真实机器人上部署动作，不只是训练一个模型。它需要数字模型、控制频率、执行器延迟、噪声建模、系统识别、实时通信和真机日志共同配合。
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        星际量子科技正在构建一套可复用的动作部署链路，让机器人能力从一次性演示，走向可持续迭代的工程系统。
+                    </p>
                 </div>
 
-                <!-- 特性卡片 2 -->
-                <div class="tech-card rounded-2xl p-8">
-                    <div class="h-12 w-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <!-- CSS 构建的垂直流程图 -->
+                <div class="relative py-8 px-4 md:px-12 border border-white/10 rounded-2xl bg-black/50">
+                    <div class="absolute left-8 md:left-16 top-12 bottom-12 flow-line"></div>
+                    
+                    <div class="space-y-8 relative z-10">
+                        <div class="flex items-center gap-6">
+                            <div class="w-8 h-8 rounded-full bg-quantum-900 border-2 border-quantum-500 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(34,211,238,0.5)]"></div>
+                            <div class="font-medium text-white">系统识别与参数校准</div>
+                        </div>
+                        <div class="flex items-center gap-6">
+                            <div class="w-8 h-8 rounded-full bg-zinc-900 border-2 border-gray-600 flex items-center justify-center shrink-0"></div>
+                            <div class="font-medium text-gray-300">动作数据 / 策略模型</div>
+                        </div>
+                        <div class="flex items-center gap-6">
+                            <div class="w-8 h-8 rounded-full bg-zinc-900 border-2 border-gray-600 flex items-center justify-center shrink-0"></div>
+                            <div class="font-medium text-gray-300">仿真训练与验证</div>
+                        </div>
+                        <div class="flex items-center gap-6">
+                            <div class="w-8 h-8 rounded-full bg-quantum-900/50 border-2 border-quantum-500/50 flex items-center justify-center shrink-0"></div>
+                            <div class="font-bold text-quantum-400">sim2real 迁移</div>
+                        </div>
+                        <div class="flex items-center gap-6">
+                            <div class="w-8 h-8 rounded-full bg-zinc-900 border-2 border-gray-600 flex items-center justify-center shrink-0"></div>
+                            <div class="font-medium text-gray-300">真机部署</div>
+                        </div>
+                        <div class="flex items-center gap-6">
+                            <div class="w-8 h-8 rounded-full bg-zinc-900 border-2 border-gray-600 flex items-center justify-center shrink-0"></div>
+                            <div class="font-medium text-gray-300">运行数据反馈</div>
+                        </div>
+                        <div class="flex items-center gap-6">
+                            <div class="w-8 h-8 rounded-full bg-quantum-500 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(34,211,238,0.8)]">
+                                <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                            </div>
+                            <div class="font-bold text-white">持续迭代优化</div>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3 text-white">自研一体化关节</h3>
-                    <p class="text-gray-400 leading-relaxed text-sm">极致的峰值扭矩密度。将电机、减速器、编码器与驱动器高度集成，提供媲美人类肌肉的爆发力与柔顺性。</p>
-                </div>
-
-                <!-- 特性卡片 3 -->
-                <div class="tech-card rounded-2xl p-8">
-                    <div class="h-12 w-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3 text-white">高动态平衡算法</h3>
-                    <p class="text-gray-400 leading-relaxed text-sm">基于全身动力学模型（WBC）与强化学习（RL），在复杂地形、受强外力冲击下依然保持稳定不倒。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 招聘/加入我们 (Hiring) -->
-    <section id="team" class="py-24 border-t border-gray-900 relative overflow-hidden">
-        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-5"></div>
-        <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative z-10">
-            <h2 class="text-4xl font-bold mb-6">Build the Future with Us</h2>
-            <p class="text-xl text-gray-400 mb-10">我们正在寻找顶尖的具身算法工程师、电机控制专家、机械结构工程师。<br>如果你渴望将科幻变成现实，欢迎上船。</p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="mailto:hr@yourdomain.com" class="px-8 py-4 rounded-full bg-white text-black font-semibold hover:bg-gray-200 transition">
-                    投递简历 (hr@yourdomain.com)
+    <!-- 8. 合作方向模块 -->
+    <section id="contact" class="py-24">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">我们希望连接这些伙伴</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">星际量子科技欢迎教育科研机构、算法团队、展示客户、政府园区及具身智能生态伙伴与我们交流合作。</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <div class="card-hover p-6 rounded-xl text-center">
+                    <h3 class="text-lg font-bold text-white mb-2">教育科研</h3>
+                    <p class="text-gray-400 text-sm">为高校、实验室提供真实机器人平台，用于课程教学与前沿算法验证。</p>
+                </div>
+                <div class="card-hover p-6 rounded-xl text-center border-quantum-900/30">
+                    <h3 class="text-lg font-bold text-white mb-2">算法与模型团队</h3>
+                    <p class="text-gray-400 text-sm">提供真实本体，支持动作策略、VLA 及模仿学习模型的真机验证。</p>
+                </div>
+                <div class="card-hover p-6 rounded-xl text-center">
+                    <h3 class="text-lg font-bold text-white mb-2">商业展示</h3>
+                    <p class="text-gray-400 text-sm">为科技展厅、品牌活动和高端商业空间提供具备未来感的展示平台。</p>
+                </div>
+                <div class="card-hover p-6 rounded-xl text-center">
+                    <h3 class="text-lg font-bold text-white mb-2">政府与园区</h3>
+                    <p class="text-gray-400 text-sm">参与具身智能产业示范、科技创新展示和区域机器人生态建设。</p>
+                </div>
+            </div>
+
+            <div class="text-center bg-zinc-900 border border-white/10 p-10 rounded-2xl max-w-3xl mx-auto flex flex-col items-center">
+                <h3 class="text-2xl font-bold mb-4">开启合作交流</h3>
+                <p class="text-gray-400 mb-8">我们期待与您探讨具身智能领域的无限可能。</p>
+                <a href="mailto:contact@yourdomain.com" class="px-8 py-4 rounded bg-white text-black font-semibold hover:bg-gray-200 transition shadow-lg">
+                    联系邮箱: contact@yourdomain.com
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- 底部 (Footer) -->
-    <footer class="py-10 border-t border-gray-900 bg-black text-center text-gray-600 text-sm">
+    <!-- 底部 Footer -->
+    <footer class="py-8 border-t border-white/5 bg-black text-center text-gray-500 text-sm">
         <div class="max-w-7xl mx-auto px-6">
-            <p>&copy; 2024 STEQ Robotics, Inc. All rights reserved.</p>
+            <p>&copy; 2026 星际量子科技 (Interstellar Quantum Technology). All rights reserved.</p>
         </div>
     </footer>
 
