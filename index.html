@@ -9,6 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 引入极简风格字体 -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     
     <script>
         tailwind.config = {
@@ -24,55 +25,47 @@
     </script>
     <style>
         body { background-color: #000000; color: #ffffff; }
-        /* 渐变毛玻璃导航（自上而下淡出，融入 Hero） */
-        .glass-nav {
-            isolation: isolate;
-        }
+        .glass-nav { isolation: isolate; }
         .glass-nav::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            background: linear-gradient(
-                to bottom,
-                rgba(0, 0, 0, 0.38) 0%,
-                rgba(0, 0, 0, 0.12) 55%,
-                transparent 100%
-            );
-            backdrop-filter: blur(20px) saturate(1.25);
-            -webkit-backdrop-filter: blur(20px) saturate(1.25);
-            -webkit-mask-image: linear-gradient(to bottom, black 0%, black 45%, transparent 100%);
-            mask-image: linear-gradient(to bottom, black 0%, black 45%, transparent 100%);
-            pointer-events: none;
+            content: ''; position: absolute; inset: 0; z-index: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.1) 50%, transparent 100%);
+            backdrop-filter: blur(20px); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 100%);
         }
-        .glass-nav > div {
-            position: relative;
-            z-index: 1;
-        }
-        /* 柔和的底层光晕 */
+        .glass-nav > div { position: relative; z-index: 1; }
         .ambient-glow { position: absolute; border-radius: 50%; filter: blur(120px); z-index: 0; pointer-events: none; }
-        /* 极简强调文字 */
         .text-highlight { color: #22d3ee; }
-        /* 媒体占位符与填充 */
-        .media-placeholder { background: linear-gradient(145deg, #111 0%, #050505 100%); border: 1px solid rgba(255,255,255,0.05); }
         .media-fill { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-        /* 自然边缘过渡 */
-        .hero-gradient-t { background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, transparent 22%); }
-        .hero-gradient-b { background: linear-gradient(to top, #000000 0%, #000000 5%, rgba(0,0,0,0.6) 20%, transparent 60%); }
-        .hero-gradient-l { background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 25%, transparent 60%); }
-        .hero-glow { background: radial-gradient(circle at 50% 50%, rgba(34, 211, 238, 0.05) 0%, transparent 70%); }
+        
+        /* 渐变遮罩 */
+        .hero-gradient-t { background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 30%); }
+        .hero-gradient-b { background: linear-gradient(to top, #000000 0%, rgba(0,0,0,0.6) 15%, transparent 50%); }
+        .hero-gradient-l { background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 30%, transparent 60%); }
+        
+        /* Swiper 定制 */
+        .k2-swiper.swiper { width: 100%; height: 100%; }
+        .k2-swiper .swiper-button-next, .k2-swiper .swiper-button-prev {
+            color: white !important; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px);
+            width: 56px !important; height: 56px !important; border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.15); transition: all 0.3s ease;
+        }
+        .k2-swiper .swiper-button-next:hover, .k2-swiper .swiper-button-prev:hover {
+            background: rgba(255, 255, 255, 0.15); transform: scale(1.1);
+        }
+        .k2-swiper .swiper-button-next::after, .k2-swiper .swiper-button-prev::after { font-size: 20px !important; font-weight: bold; }
+        .k2-swiper .swiper-pagination-bullet { background: rgba(255, 255, 255, 0.3) !important; opacity: 1 !important; transition: all 0.3s ease; }
+        .k2-swiper .swiper-pagination-bullet-active { background: #22d3ee !important; width: 32px !important; border-radius: 8px !important; }
+        .swiper-pagination { bottom: 20px !important; }
     </style>
 </head>
 <body class="antialiased selection:bg-quantum-500 selection:text-white">
 
-    <!-- 首屏 Hero（含毛玻璃导航，随页滚动不固定） -->
+    <!-- 1. 首屏 Hero -->
     <section class="relative min-h-screen flex flex-col justify-center overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <img src="asset/正面渲染图.jpg" alt="星际量子机器人正面渲染" class="media-fill object-center scale-100">
+            <img src="asset/正面渲染图.jpg" alt="星际量子机器人正面渲染" class="media-fill object-center">
             <div class="absolute inset-0 hero-gradient-t"></div>
             <div class="absolute inset-0 hero-gradient-l"></div>
             <div class="absolute inset-0 hero-gradient-b"></div>
-            <div class="absolute inset-0 hero-glow"></div>
         </div>
 
         <nav class="absolute top-0 left-0 right-0 z-50 glass-nav pb-10">
@@ -84,7 +77,7 @@
                     </div>
                     <div class="hidden md:flex space-x-12 text-sm font-medium text-zinc-300">
                         <a href="#about" class="hover:text-white transition">理念</a>
-                        <a href="#k2-k3" class="hover:text-white transition">机器人平台</a>
+                        <a href="#k2-k3" class="hover:text-white transition">平台</a>
                         <a href="#capabilities" class="hover:text-white transition">技术</a>
                         <a href="#contact" class="hover:text-white transition">合作</a>
                     </div>
@@ -102,50 +95,56 @@
                     让策略模型、动作数据与未来具身大模型拥有真实可执行的物理载体。
                 </p>
                 <div class="flex flex-wrap gap-6">
-                    <a href="#k2-k3" class="px-10 py-4 rounded-full bg-white text-black text-sm font-semibold hover:bg-zinc-200 transition-all duration-300 transform hover:scale-105">
+                    <a href="#k2-k3" class="px-10 py-4 rounded-full bg-white text-black text-sm font-semibold hover:bg-zinc-200 transition-all duration-300">
                         探索平台
                     </a>
-                    <a href="#about" class="px-10 py-4 rounded-full bg-transparent text-white border border-white/20 text-sm font-semibold hover:bg-white/5 transition-all duration-300">
-                        了解理念
-                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 3. 极简理念模块 (大排版布局) -->
-    <section id="about" class="py-32 lg:py-48 relative">
+    <!-- 2. 理念模块 -->
+    <section id="about" class="py-32 lg:py-40 relative bg-black">
         <div class="max-w-[90rem] mx-auto px-6 lg:px-12">
-            <div class="grid lg:grid-cols-12 gap-12 lg:gap-24">
-                <!-- 左侧小标题 -->
+            <div class="grid lg:grid-cols-12 gap-12 lg:gap-0">
+                
                 <div class="lg:col-span-4">
-                    <h2 class="text-sm font-semibold tracking-widest text-quantum-500 uppercase">Vision & Philosophy</h2>
+                    <h2 class="text-sm font-semibold tracking-widest text-quantum-500 uppercase flex items-center gap-3">
+                        <span class="w-6 h-[1px] bg-quantum-500"></span>
+                        Vision
+                    </h2>
                 </div>
-                <!-- 右侧巨大声明文字 -->
+                
                 <div class="lg:col-span-8">
-                    <p class="text-3xl md:text-4xl lg:text-5xl font-medium leading-[1.3] text-white mb-16">
-                        人形机器人<span class="text-zinc-600">不是重载机器，</span><br>
-                        更像一种面向人类环境的<br>
+                    <h3 class="text-4xl md:text-5xl lg:text-6xl font-medium leading-[1.3] text-white mb-10 tracking-tight">
+                        面向人类环境的<br>
                         <span class="text-highlight">具身智能终端。</span>
-                    </p>
+                    </h3>
                     
-                    <!-- 极简对比列表 -->
-                    <div class="grid sm:grid-cols-2 gap-y-8 gap-x-12 text-lg text-zinc-400 font-light border-t border-zinc-800 pt-12">
-                        <div class="flex flex-col gap-1">
-                            <span class="text-white font-medium">灵巧性</span>
-                            <span class="text-sm text-zinc-600">而非盲目重载</span>
+                    <div class="flex flex-wrap items-center gap-x-6 gap-y-4 text-xl md:text-2xl text-zinc-300 font-light mb-20">
+                        <span class="hover:text-white transition-colors">步入人类空间</span>
+                        <span class="text-zinc-700 font-mono">/</span>
+                        <span class="hover:text-white transition-colors">接管现有工具</span>
+                        <span class="text-zinc-700 font-mono">/</span>
+                        <span class="hover:text-white transition-colors">建立自然交互</span>
+                    </div>
+                    
+                    <div class="grid sm:grid-cols-2 gap-y-12 gap-x-12 text-lg border-t border-zinc-800 pt-16">
+                        <div class="flex flex-col gap-2 group">
+                            <span class="text-white font-medium text-xl group-hover:text-quantum-400 transition-colors">灵巧性</span>
+                            <span class="text-sm text-zinc-600 font-light">而非盲目重载</span>
                         </div>
-                        <div class="flex flex-col gap-1">
-                            <span class="text-white font-medium">开放性</span>
-                            <span class="text-sm text-zinc-600">而非封闭系统</span>
+                        <div class="flex flex-col gap-2 group">
+                            <span class="text-white font-medium text-xl group-hover:text-quantum-400 transition-colors">开放性</span>
+                            <span class="text-sm text-zinc-600 font-light">而非封闭系统</span>
                         </div>
-                        <div class="flex flex-col gap-1">
-                            <span class="text-white font-medium">可部署性</span>
-                            <span class="text-sm text-zinc-600">而非单次演示</span>
+                        <div class="flex flex-col gap-2 group">
+                            <span class="text-white font-medium text-xl group-hover:text-quantum-400 transition-colors">可部署性</span>
+                            <span class="text-sm text-zinc-600 font-light">而非单次演示</span>
                         </div>
-                        <div class="flex flex-col gap-1">
-                            <span class="text-white font-medium">可维护性</span>
-                            <span class="text-sm text-zinc-600">而非实验室样机</span>
+                        <div class="flex flex-col gap-2 group">
+                            <span class="text-white font-medium text-xl group-hover:text-quantum-400 transition-colors">可维护性</span>
+                            <span class="text-sm text-zinc-600 font-light">而非实验室样机</span>
                         </div>
                     </div>
                 </div>
@@ -153,72 +152,74 @@
         </div>
     </section>
 
-    <!-- 4. 产品展示 (全宽布局，图片/视频绝对主角) -->
-    <section id="k2-k3" class="py-24 space-y-32 lg:space-y-48">
+    <!-- 3. 平台展示模块 (K2 & K3 严谨统一排版) -->
+    <section id="k2-k3" class="py-32 lg:py-40">
         
-        <!-- K2: 侧重动态演示 (左字右视频) -->
-        <div class="max-w-[90rem] mx-auto px-6 lg:px-12">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div class="order-2 lg:order-1 max-w-lg">
+        <!-- ================= K2 平台 ================= -->
+        <div class="max-w-[90rem] mx-auto px-6 lg:px-12 mb-40">
+            <!-- 上半部：网格对齐文字 -->
+            <div class="mb-12 grid lg:grid-cols-12 gap-12 items-end">
+                <div class="lg:col-span-5">
                     <div class="text-quantum-500 text-sm font-bold tracking-widest mb-4">GENERATION 1</div>
                     <h2 class="text-4xl md:text-5xl font-semibold mb-6">K2 样机平台</h2>
-                    <p class="text-zinc-400 text-lg font-light leading-relaxed mb-10">
+                    <p class="text-zinc-400 text-lg font-light leading-relaxed">
                         定位为运动控制与整机工程闭环验证平台。已完成从结构、电气、软系统到 RL/模仿学习的真机部署完整链路验证。
                     </p>
-                    <!-- 极简参数格 -->
-                    <div class="grid grid-cols-2 gap-8 border-l border-zinc-800 pl-6">
+                </div>
+                
+                <div class="lg:col-span-6 lg:col-start-7 lg:pb-2">
+                    <div class="grid grid-cols-2 gap-8 border-l border-zinc-800 pl-8">
                         <div>
-                            <div class="text-2xl text-white font-medium">1.4m</div>
-                            <div class="text-xs text-zinc-500 mt-1 uppercase tracking-wider">高度级别</div>
+                            <div class="text-3xl text-white font-medium">1.4m</div>
+                            <div class="text-xs text-zinc-500 mt-2 uppercase tracking-wider">高度级别</div>
                         </div>
                         <div>
-                            <div class="text-2xl text-white font-medium">21</div>
-                            <div class="text-xs text-zinc-500 mt-1 uppercase tracking-wider">全身自由度</div>
+                            <div class="text-3xl text-white font-medium">21</div>
+                            <div class="text-xs text-zinc-500 mt-2 uppercase tracking-wider">全身自由度</div>
                         </div>
-                        <div class="col-span-2">
-                            <div class="text-sm text-white font-medium">核心特性</div>
-                            <div class="text-xs text-zinc-500 mt-1 leading-relaxed">RL/模仿学习 / sim2real / 网页监控与调试</div>
+                        <div class="col-span-2 pt-4 border-t border-zinc-800/50">
+                            <div class="text-sm text-zinc-400 leading-relaxed font-light">核心特性: RL/模仿学习 / sim2real / 网页监控与调试</div>
                         </div>
                     </div>
                 </div>
-                <!-- K2 真机演示视频 -->
-                <div class="order-1 lg:order-2 w-full aspect-video rounded-2xl relative overflow-hidden border border-white/5 bg-zinc-950">
-                    <video
-                        id="k2-video"
-                        class="media-fill object-cover"
-                        src="asset/DSC_5436.mp4"
-                        poster="asset/正向实机.jpg"
-                        playsinline
-                        preload="metadata"
-                    ></video>
-                    <div class="absolute inset-0 bg-quantum-900/10 mix-blend-overlay pointer-events-none"></div>
-                    <button
-                        type="button"
-                        id="k2-play-btn"
-                        class="absolute inset-0 z-10 flex items-center justify-center cursor-pointer transition-opacity"
-                        aria-label="播放 K2 真机演示视频"
-                    >
-                        <span class="w-16 h-16 rounded-full bg-white/10 backdrop-blur flex items-center justify-center border border-white/20 hover:scale-110 hover:bg-white/20 transition-all duration-300">
-                            <svg class="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                        </span>
-                    </button>
+            </div>
+
+            <!-- 下半部：等宽巨幕视频 -->
+            <div class="w-full relative bg-zinc-950 rounded-[2rem] overflow-hidden border border-white/5 shadow-2xl" style="aspect-ratio: 16/9; max-height: 85vh;">
+                <div class="swiper k2-swiper h-full">
+                    <div class="swiper-wrapper">
+                        <!-- 视频 1 -->
+                        <div class="swiper-slide relative">
+                            <video class="k2-video media-fill object-cover" src="asset/walk_step.mp4" poster="asset/walk_step.png" playsinline preload="metadata"></video>
+                            <div class="absolute inset-0 bg-black/20 pointer-events-none transition-opacity duration-500 group-hover:opacity-0"></div>
+                            <button type="button" class="k2-play-btn absolute inset-0 z-10 flex items-center justify-center cursor-pointer transition-opacity" aria-label="播放视频 01">
+                                <span class="w-20 h-20 rounded-full bg-white/10 backdrop-blur-lg flex items-center justify-center border border-white/20 hover:scale-110 hover:bg-white/25 transition-all duration-300">
+                                    <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </span>
+                            </button>
+                        </div>
+                        <!-- 视频 2 -->
+                        <div class="swiper-slide relative">
+                            <video class="k2-video media-fill object-cover" src="asset/mimic_turnback.mp4" poster="asset/mimic_turnback.png" playsinline preload="metadata"></video>
+                            <div class="absolute inset-0 bg-black/20 pointer-events-none"></div>
+                            <button type="button" class="k2-play-btn absolute inset-0 z-10 flex items-center justify-center cursor-pointer transition-opacity" aria-label="播放视频 02">
+                                <span class="w-20 h-20 rounded-full bg-white/10 backdrop-blur-lg flex items-center justify-center border border-white/20 hover:scale-110 hover:bg-white/25 transition-all duration-300">
+                                    <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="swiper-button-next !right-8"></div>
+                    <div class="swiper-button-prev !left-8"></div>
+                    <div class="swiper-pagination"></div>
                 </div>
             </div>
         </div>
 
-        <!-- K3: 侧重工业设计与工程化 (上图下字全宽结构) -->
+        <!-- ================= K3 平台 ================= -->
         <div class="max-w-[90rem] mx-auto px-6 lg:px-12">
-            <!-- K3 结构图（16:9 展示框，铺满边框） -->
-            <div class="w-full aspect-[16/9] rounded-2xl relative mb-16 overflow-hidden border border-white/5 bg-zinc-950">
-                <img
-                    src="asset/结构图.jpg"
-                    alt="K3 工程化平台结构图"
-                    class="absolute inset-0 w-full h-full object-cover object-center"
-                >
-                <div class="ambient-glow w-[600px] h-[600px] bg-quantum-600/10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
-            </div>
-
-            <div class="grid lg:grid-cols-12 gap-12">
+            <!-- 强迫症福音：上下结构与网格分列，和K2完全一致 -->
+            <div class="mb-12 grid lg:grid-cols-12 gap-12 items-end">
                 <div class="lg:col-span-5">
                     <div class="text-quantum-500 text-sm font-bold tracking-widest mb-4">NEXT GENERATION</div>
                     <h2 class="text-4xl md:text-5xl font-semibold mb-6">K3 工程化平台</h2>
@@ -226,36 +227,44 @@
                         从 Demo 走向可小批量复制、可开放接入的工程化平台。重点验证供应链、自研关节与有限销售能力。
                     </p>
                 </div>
-                <div class="lg:col-span-6 lg:col-start-7 pt-4 border-t border-zinc-800 lg:border-t-0 lg:border-l lg:pl-12">
-                    <div class="grid sm:grid-cols-2 gap-8">
+                
+                <div class="lg:col-span-6 lg:col-start-7 lg:pb-2">
+                    <div class="grid grid-cols-2 gap-8 border-l border-zinc-800 pl-8">
                         <div>
-                            <div class="text-white font-medium mb-1">27 自由度</div>
-                            <div class="text-sm text-zinc-500">目标硬件配置</div>
+                            <div class="text-3xl text-white font-medium">27</div>
+                            <div class="text-xs text-zinc-500 mt-2 uppercase tracking-wider">全身自由度</div>
                         </div>
                         <div>
-                            <div class="text-white font-medium mb-1">自研关节模组</div>
-                            <div class="text-sm text-zinc-500">高度集成化动力单元</div>
+                            <div class="text-3xl text-white font-medium">100%</div>
+                            <div class="text-xs text-zinc-500 mt-2 uppercase tracking-wider">自研关节模组</div>
                         </div>
-                        <div>
-                            <div class="text-white font-medium mb-1">开放接口 SDK</div>
-                            <div class="text-sm text-zinc-500">支持客户二次开发与共创</div>
-                        </div>
-                        <div>
-                            <div class="text-white font-medium mb-1">选配灵巧手</div>
-                            <div class="text-sm text-zinc-500">扩展复杂操作能力</div>
+                        <div class="col-span-2 pt-4 border-t border-zinc-800/50 flex gap-12">
+                            <div>
+                                <div class="text-white font-medium mb-1">开放接口 SDK</div>
+                                <div class="text-xs text-zinc-500">支持二次开发共创</div>
+                            </div>
+                            <div>
+                                <div class="text-white font-medium mb-1">选配灵巧手</div>
+                                <div class="text-xs text-zinc-500">扩展复杂操作能力</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- 下半部：等宽巨幕图片 -->
+            <div class="w-full relative bg-zinc-950 rounded-[2rem] overflow-hidden border border-white/5 shadow-2xl" style="aspect-ratio: 16/9; max-height: 85vh;">
+                <img src="asset/结构图.jpg" alt="K3 工程化平台结构图" class="media-fill object-center">
+                <div class="ambient-glow w-[600px] h-[600px] bg-quantum-600/10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+            </div>
         </div>
     </section>
 
-    <!-- 5. 核心能力 (去卡片化，网格列表布局) -->
-    <section id="capabilities" class="py-32 bg-[#050505] border-y border-zinc-900">
+    <!-- 4. 核心能力 -->
+    <section id="capabilities" class="py-32 lg:py-40 bg-[#050505] border-y border-zinc-900">
         <div class="max-w-[90rem] mx-auto px-6 lg:px-12">
-            <h2 class="text-3xl font-semibold mb-16">闭环的系统工程</h2>
+            <h2 class="text-3xl font-semibold mb-16 lg:mb-24">闭环的系统工程</h2>
             <div class="grid md:grid-cols-2 gap-x-20 gap-y-16">
-                
                 <div class="group">
                     <div class="text-quantum-500 font-mono text-sm mb-4">01</div>
                     <h3 class="text-2xl font-medium mb-4 text-white">本体工程细节</h3>
@@ -263,7 +272,6 @@
                         从结构设计、线束布局到主控系统。真正的可靠性，不来自简单堆叠，而是长期调试和工程准则沉淀。
                     </p>
                 </div>
-                
                 <div class="group">
                     <div class="text-quantum-500 font-mono text-sm mb-4">02</div>
                     <h3 class="text-2xl font-medium mb-4 text-white">Sim2Real 迁移</h3>
@@ -271,7 +279,6 @@
                         围绕电机延迟、控制频率和真实执行器特性建模。目标是让策略能极其稳定地进入真实机器人。
                     </p>
                 </div>
-                
                 <div class="group">
                     <div class="text-quantum-500 font-mono text-sm mb-4">03</div>
                     <h3 class="text-2xl font-medium mb-4 text-white">动作部署 Pipeline</h3>
@@ -279,7 +286,6 @@
                         成熟的 RL 与模仿学习部署流程，将动作数据、训练策略和真机运行连接，形成持续迭代体系。
                     </p>
                 </div>
-                
                 <div class="group">
                     <div class="text-quantum-500 font-mono text-sm mb-4">04</div>
                     <h3 class="text-2xl font-medium mb-4 text-white">参数化适配</h3>
@@ -287,13 +293,12 @@
                         软件系统支持快速适配不同电机与构型，减少重复开发和长周期现场调试，奠定后续平台基础。
                     </p>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- 6. 技术路线 (极简文本流线，去除了繁杂的方框) -->
-    <section class="py-32">
+    <!-- 5. 技术路线 (修正数学居中问题) -->
+    <section class="py-32 lg:py-40">
         <div class="max-w-[90rem] mx-auto px-6 lg:px-12 grid lg:grid-cols-12 gap-16">
             <div class="lg:col-span-5">
                 <h2 class="text-3xl font-semibold mb-6">从动作到真实世界</h2>
@@ -303,31 +308,39 @@
             </div>
             
             <div class="lg:col-span-6 lg:col-start-7">
-                <div class="flex flex-col gap-6 text-lg font-light text-zinc-500">
+                <div class="flex flex-col text-lg font-light text-zinc-500">
+                    <!-- 绝对居中的 Flex 轴线体系 -->
                     <div class="flex items-center gap-6 text-zinc-300">
-                        <span class="w-2 h-2 rounded-full bg-zinc-600"></span> 系统识别与参数校准
+                        <div class="flex flex-col items-center justify-center w-4"><div class="w-2 h-2 rounded-full bg-zinc-600"></div></div>
+                        <span>系统识别与参数校准</span>
                     </div>
-                    <div class="w-px h-6 bg-zinc-800 ml-1"></div>
+                    <div class="flex flex-col items-center justify-center w-4 py-2"><div class="w-px h-8 bg-zinc-800"></div></div>
+                    
                     <div class="flex items-center gap-6 text-zinc-300">
-                        <span class="w-2 h-2 rounded-full bg-zinc-600"></span> 动作数据 / 策略模型
+                        <div class="flex flex-col items-center justify-center w-4"><div class="w-2 h-2 rounded-full bg-zinc-600"></div></div>
+                        <span>动作数据 / 策略模型</span>
                     </div>
-                    <div class="w-px h-6 bg-zinc-800 ml-1"></div>
+                    <div class="flex flex-col items-center justify-center w-4 py-2"><div class="w-px h-8 bg-zinc-800"></div></div>
+                    
                     <div class="flex items-center gap-6 text-quantum-400 font-medium text-xl">
-                        <span class="w-2 h-2 rounded-full bg-quantum-500 shadow-[0_0_10px_#22d3ee]"></span> Sim2Real 迁移
+                        <div class="flex flex-col items-center justify-center w-4"><div class="w-2 h-2 rounded-full bg-quantum-500 shadow-[0_0_10px_#22d3ee]"></div></div>
+                        <span>Sim2Real 迁移</span>
                     </div>
-                    <div class="w-px h-6 bg-zinc-800 ml-1"></div>
+                    <div class="flex flex-col items-center justify-center w-4 py-2"><div class="w-px h-8 bg-zinc-800"></div></div>
+                    
                     <div class="flex items-center gap-6 text-zinc-300">
-                        <span class="w-2 h-2 rounded-full bg-zinc-600"></span> 真机部署 & 运行数据反馈
+                        <div class="flex flex-col items-center justify-center w-4"><div class="w-2 h-2 rounded-full bg-zinc-600"></div></div>
+                        <span>真机部署 & 运行数据反馈</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 7. 合作方向 (极简留白) -->
-    <section id="contact" class="py-32 border-t border-zinc-900 bg-[#020202]">
+    <!-- 6. 合作方向 -->
+    <section id="contact" class="py-32 lg:py-40 border-t border-zinc-900 bg-[#020202]">
         <div class="max-w-[90rem] mx-auto px-6 lg:px-12 text-center">
-            <h2 class="text-3xl md:text-4xl font-semibold mb-16">连接生态伙伴</h2>
+            <h2 class="text-3xl md:text-4xl font-semibold mb-16 lg:mb-24">连接生态伙伴</h2>
             
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12 mb-24 text-left">
                 <div>
@@ -348,37 +361,64 @@
                 </div>
             </div>
 
-            <a href="mailto:contact@yourdomain.com" class="inline-flex items-center gap-3 text-lg text-quantum-400 hover:text-white transition group border-b border-transparent hover:border-quantum-400 pb-1">
-                联系我们探讨合作
-                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </a>
+            <div class="flex flex-col items-center gap-2">
+                <p class="text-lg text-zinc-400 font-light">联系我们探讨合作</p>
+                <p class="text-lg md:text-xl text-quantum-400 font-medium tracking-wide select-all">contact@gmail.com</p>
+            </div>
         </div>
     </section>
 
+    <!-- Footer -->
     <footer class="py-12 border-t border-zinc-900 bg-black text-zinc-600 text-xs tracking-wider font-mono px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center">
         <div>&copy; 2024 INTERSTELLAR QUANTUM TECHNOLOGY.</div>
         <div class="mt-4 md:mt-0">DESIGNED FOR EMBODIED AI.</div>
     </footer>
 
+    <!-- Swiper Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         (function () {
-            const video = document.getElementById('k2-video');
-            const btn = document.getElementById('k2-play-btn');
-            if (!video || !btn) return;
+            function pauseAllK2Videos() {
+                document.querySelectorAll('.k2-video').forEach(function (v) {
+                    v.pause(); v.controls = false;
+                });
+                document.querySelectorAll('.k2-play-btn').forEach(function (btn) {
+                    btn.classList.remove('opacity-0', 'pointer-events-none');
+                });
+            }
 
-            btn.addEventListener('click', function () {
+            const k2SwiperEl = document.querySelector('.k2-swiper');
+            if (k2SwiperEl && typeof Swiper !== 'undefined') {
+                new Swiper('.k2-swiper', {
+                    loop: true,
+                    grabCursor: true,
+                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                    pagination: { el: '.swiper-pagination', clickable: true },
+                    on: { slideChangeTransitionStart: pauseAllK2Videos },
+                });
+            }
+
+            k2SwiperEl?.addEventListener('click', function (e) {
+                const btn = e.target.closest('.k2-play-btn');
+                if (!btn) return;
+                const slide = btn.closest('.swiper-slide');
+                const video = slide && slide.querySelector('.k2-video');
+                if (!video) return;
+                pauseAllK2Videos();
                 video.controls = true;
                 video.play();
                 btn.classList.add('opacity-0', 'pointer-events-none');
             });
 
-            video.addEventListener('ended', function () {
-                video.controls = false;
-                video.currentTime = 0;
-                btn.classList.remove('opacity-0', 'pointer-events-none');
+            document.querySelectorAll('.k2-video').forEach(function (video) {
+                video.addEventListener('ended', function () {
+                    video.controls = false; video.currentTime = 0;
+                    const slide = video.closest('.swiper-slide');
+                    const btn = slide && slide.querySelector('.k2-play-btn');
+                    if (btn) btn.classList.remove('opacity-0', 'pointer-events-none');
+                });
             });
         })();
     </script>
-
 </body>
 </html>
