@@ -41,20 +41,24 @@
         .hero-gradient-b { background: linear-gradient(to top, #000000 0%, rgba(0,0,0,0.6) 15%, transparent 50%); }
         .hero-gradient-l { background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 30%, transparent 60%); }
         
-        /* Swiper 定制 */
-        .k2-swiper.swiper { width: 100%; height: 100%; }
-        .k2-swiper .swiper-button-next, .k2-swiper .swiper-button-prev {
+        /* Swiper 定制 (共用) */
+        .k2-swiper.swiper, .k3-swiper.swiper { width: 100%; height: 100%; }
+        
+        /* 左右按钮 (K2 和 K3 共用统一设计) */
+        .swiper-button-next, .swiper-button-prev {
             color: white !important; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px);
             width: 56px !important; height: 56px !important; border-radius: 50%;
             border: 1px solid rgba(255, 255, 255, 0.15); transition: all 0.3s ease;
         }
-        .k2-swiper .swiper-button-next:hover, .k2-swiper .swiper-button-prev:hover {
+        .swiper-button-next:hover, .swiper-button-prev:hover {
             background: rgba(255, 255, 255, 0.15); transform: scale(1.1);
         }
-        .k2-swiper .swiper-button-next::after, .k2-swiper .swiper-button-prev::after { font-size: 20px !important; font-weight: bold; }
-        .k2-swiper .swiper-pagination-bullet { background: rgba(255, 255, 255, 0.3) !important; opacity: 1 !important; transition: all 0.3s ease; }
-        .k2-swiper .swiper-pagination-bullet-active { background: #22d3ee !important; width: 32px !important; border-radius: 8px !important; }
-        .swiper-pagination { bottom: 20px !important; }
+        .swiper-button-next::after, .swiper-button-prev::after { font-size: 20px !important; font-weight: bold; }
+        
+        /* 指示点 (K2 和 K3 共用，保持视觉一致) */
+        .swiper-pagination-bullet { background: rgba(255, 255, 255, 0.3) !important; opacity: 1 !important; transition: all 0.3s ease; }
+        .swiper-pagination-bullet-active { background: #22d3ee !important; width: 32px !important; border-radius: 8px !important; }
+        .swiper-pagination { bottom: 20px !important; z-index: 20; }
     </style>
 </head>
 <body class="antialiased selection:bg-quantum-500 selection:text-white">
@@ -107,20 +111,17 @@
     <section id="about" class="py-32 lg:py-40 relative bg-black">
         <div class="max-w-[90rem] mx-auto px-6 lg:px-12">
             <div class="grid lg:grid-cols-12 gap-12 lg:gap-0">
-                
                 <div class="lg:col-span-4">
                     <h2 class="text-sm font-semibold tracking-widest text-quantum-500 uppercase flex items-center gap-3">
                         <span class="w-6 h-[1px] bg-quantum-500"></span>
                         Vision
                     </h2>
                 </div>
-                
                 <div class="lg:col-span-8">
                     <h3 class="text-4xl md:text-5xl lg:text-6xl font-medium leading-[1.3] text-white mb-10 tracking-tight">
                         面向人类环境的<br>
                         <span class="text-highlight">具身智能终端。</span>
                     </h3>
-                    
                     <div class="flex flex-wrap items-center gap-x-6 gap-y-4 text-xl md:text-2xl text-zinc-300 font-light mb-20">
                         <span class="hover:text-white transition-colors">步入人类空间</span>
                         <span class="text-zinc-700 font-mono">/</span>
@@ -128,7 +129,6 @@
                         <span class="text-zinc-700 font-mono">/</span>
                         <span class="hover:text-white transition-colors">建立自然交互</span>
                     </div>
-                    
                     <div class="grid sm:grid-cols-2 gap-y-12 gap-x-12 text-lg border-t border-zinc-800 pt-16">
                         <div class="flex flex-col gap-2 group">
                             <span class="text-white font-medium text-xl group-hover:text-quantum-400 transition-colors">灵巧性</span>
@@ -152,12 +152,11 @@
         </div>
     </section>
 
-    <!-- 3. 平台展示模块 (K2 & K3 严谨统一排版) -->
+    <!-- 3. 平台展示模块 -->
     <section id="k2-k3" class="py-32 lg:py-40">
         
         <!-- ================= K2 平台 ================= -->
         <div class="max-w-[90rem] mx-auto px-6 lg:px-12 mb-40">
-            <!-- 上半部：网格对齐文字 -->
             <div class="mb-12 grid lg:grid-cols-12 gap-12 items-end">
                 <div class="lg:col-span-5">
                     <div class="text-quantum-500 text-sm font-bold tracking-widest mb-4">GENERATION 1</div>
@@ -166,7 +165,6 @@
                         定位为运动控制与整机工程闭环验证平台。已完成从结构、电气、软系统到 RL/模仿学习的真机部署完整链路验证。
                     </p>
                 </div>
-                
                 <div class="lg:col-span-6 lg:col-start-7 lg:pb-2">
                     <div class="grid grid-cols-2 gap-8 border-l border-zinc-800 pl-8">
                         <div>
@@ -184,7 +182,6 @@
                 </div>
             </div>
 
-            <!-- 下半部：等宽巨幕视频 -->
             <div class="w-full relative bg-zinc-950 rounded-[2rem] overflow-hidden border border-white/5 shadow-2xl" style="aspect-ratio: 16/9; max-height: 85vh;">
                 <div class="swiper k2-swiper h-full">
                     <div class="swiper-wrapper">
@@ -216,9 +213,8 @@
             </div>
         </div>
 
-        <!-- ================= K3 平台 ================= -->
+        <!-- ================= K3 平台 (图片左右丝滑滑动) ================= -->
         <div class="max-w-[90rem] mx-auto px-6 lg:px-12">
-            <!-- 强迫症福音：上下结构与网格分列，和K2完全一致 -->
             <div class="mb-12 grid lg:grid-cols-12 gap-12 items-end">
                 <div class="lg:col-span-5">
                     <div class="text-quantum-500 text-sm font-bold tracking-widest mb-4">NEXT GENERATION</div>
@@ -227,7 +223,6 @@
                         从 Demo 走向可小批量复制、可开放接入的工程化平台。重点验证供应链、自研关节与有限销售能力。
                     </p>
                 </div>
-                
                 <div class="lg:col-span-6 lg:col-start-7 lg:pb-2">
                     <div class="grid grid-cols-2 gap-8 border-l border-zinc-800 pl-8">
                         <div>
@@ -252,9 +247,35 @@
                 </div>
             </div>
 
-            <!-- 下半部：等宽巨幕图片 -->
+            <!-- 下半部：照片自动循环滑动（带箭头） -->
             <div class="w-full relative bg-zinc-950 rounded-[2rem] overflow-hidden border border-white/5 shadow-2xl" style="aspect-ratio: 16/9; max-height: 85vh;">
-                <img src="asset/结构图.jpg" alt="K3 工程化平台结构图" class="media-fill object-center">
+                <!-- K3 Swiper 容器 -->
+                <div class="swiper k3-swiper h-full">
+                    <div class="swiper-wrapper">
+                        <!-- 幻灯片 1：原结构图 -->
+                        <div class="swiper-slide relative">
+                            <img src="asset/结构图.jpg" alt="K3 结构图" class="media-fill object-center">
+                        </div>
+                        
+                        <!-- 幻灯片 2：占位测试 -->
+                        <div class="swiper-slide relative">
+                            <img src="asset/K3产品渲染图.png" alt="K3 细节图 1" class="media-fill object-center">
+                        </div>
+                        
+                        <!-- 幻灯片 3：占位测试 -->
+                        <!-- <div class="swiper-slide relative">
+                            <img src="asset/正面渲染图.jpg" alt="K3 细节图 2" class="media-fill object-contain bg-zinc-900 p-20">
+                        </div> -->
+                    </div>
+                    
+                    <!-- 加上和K2完全一致的左右箭头 -->
+                    <div class="swiper-button-next !right-8"></div>
+                    <div class="swiper-button-prev !left-8"></div>
+                    <!-- 图片播放指示点 -->
+                    <div class="swiper-pagination"></div>
+                </div>
+                
+                <!-- 底部氛围光晕保持不变 -->
                 <div class="ambient-glow w-[600px] h-[600px] bg-quantum-600/10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
             </div>
         </div>
@@ -297,7 +318,7 @@
         </div>
     </section>
 
-    <!-- 5. 技术路线 (修正数学居中问题) -->
+    <!-- 5. 技术路线 -->
     <section class="py-32 lg:py-40">
         <div class="max-w-[90rem] mx-auto px-6 lg:px-12 grid lg:grid-cols-12 gap-16">
             <div class="lg:col-span-5">
@@ -309,7 +330,6 @@
             
             <div class="lg:col-span-6 lg:col-start-7">
                 <div class="flex flex-col text-lg font-light text-zinc-500">
-                    <!-- 绝对居中的 Flex 轴线体系 -->
                     <div class="flex items-center gap-6 text-zinc-300">
                         <div class="flex flex-col items-center justify-center w-4"><div class="w-2 h-2 rounded-full bg-zinc-600"></div></div>
                         <span>系统识别与参数校准</span>
@@ -378,6 +398,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         (function () {
+            // =========== K2 视频轮播逻辑 ===========
             function pauseAllK2Videos() {
                 document.querySelectorAll('.k2-video').forEach(function (v) {
                     v.pause(); v.controls = false;
@@ -392,8 +413,8 @@
                 new Swiper('.k2-swiper', {
                     loop: true,
                     grabCursor: true,
-                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-                    pagination: { el: '.swiper-pagination', clickable: true },
+                    navigation: { nextEl: '.k2-swiper .swiper-button-next', prevEl: '.k2-swiper .swiper-button-prev' },
+                    pagination: { el: '.k2-swiper .swiper-pagination', clickable: true },
                     on: { slideChangeTransitionStart: pauseAllK2Videos },
                 });
             }
@@ -418,6 +439,28 @@
                     if (btn) btn.classList.remove('opacity-0', 'pointer-events-none');
                 });
             });
+
+            // =========== K3 图片自动轮播逻辑 (左右滑动优化版) ===========
+            const k3SwiperEl = document.querySelector('.k3-swiper');
+            if (k3SwiperEl && typeof Swiper !== 'undefined') {
+                new Swiper('.k3-swiper', {
+                    loop: true,                     // 无缝循环
+                    grabCursor: true,               // 鼠标悬浮时变为“抓手”，提示可拖拽
+                    speed: 800,                     // ⭐️ 动画过渡时间设为 800ms，使得左右滑动更有沉稳感，不廉价
+                    autoplay: {
+                        delay: 3500,                // 停留时间：3.5秒切换一次
+                        disableOnInteraction: false // 用户手动点击/滑动后，依然继续自动播放
+                    },
+                    navigation: { 
+                        nextEl: '.k3-swiper .swiper-button-next', 
+                        prevEl: '.k3-swiper .swiper-button-prev' 
+                    },
+                    pagination: { 
+                        el: '.k3-swiper .swiper-pagination', 
+                        clickable: true 
+                    },
+                });
+            }
         })();
     </script>
 </body>
